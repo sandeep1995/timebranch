@@ -109,10 +109,10 @@ class FUNCTIONS {
                     $_SESSION['id'] = $database_result->id;
                      $conn=null;
                     ?>
-                    <script>
-                        window.location.href='http://localhost/sandeep/home';
-                    </script>
-                    <?php
+	<script>
+		window.location.href = 'http://localhost/sandeep/home';
+	</script>
+	<?php
                     exit;
                 }
                 else{
@@ -168,6 +168,24 @@ class FUNCTIONS {
         }else{
             $request[0] = 0;
             return $request;
+        }
+    }
+    
+    public function post_status($user_id,$status) {
+        global $conn;
+        $status = trim($status);
+        $table = "posts";
+        $time = time();
+        $sql = "insert into $table (user_id,status,posted_at) values(?,?,?)";
+        $query = $conn->prepare($sql);
+        $query->bindParam(1,$user_id);
+        $query->bindParam(2,$status);
+        $query->bindParam(3,$time);
+        if($query->execute()){
+            return 1;
+        }
+        else{
+            return 0;
         }
     }
     
@@ -347,109 +365,112 @@ class FUNCTIONS {
             return false;
         }
     }
+    
+    
     public function nav()
     {
         ?>
-                                <nav class="navbar navbar-default">
-                      <div class="container-fluid">
-                        <!-- Brand and toggle get grouped for better mobile display -->
-                        <div class="navbar-header">
-                          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                          </button>
-                          <a class="navbar-brand" href="home">tB</a>
-                        </div>
-                    
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        
-                              <ul class="nav navbar-nav">
-                    <li role="presentation"><a href="profile"><span class="glyphicon glyphicon-user"></span> <?php print($this->get_property_of($_SESSION['id'],"first_name"));?></a></li>
-                    <li role="presentation"><a href="messages"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
-                    <li role="presentation"><a href="walk"><span class="glyphicon glyphicon-link"></span> Walking Zone</a></li>
-                    <li role="presentation"><a href="notifications"><span class="glyphicon glyphicon-bell"></span> Notifications</a></li>
-                    <li role="presentation"><a href="request"><span class="glyphicon glyphicon-star"></span> Requests <span class="badge"><?php if($_SESSION['incoming'][0]==0) echo 0;
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="home">tB</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+					<ul class="nav navbar-nav">
+						<li role="presentation"><a href="profile"><span class="glyphicon glyphicon-user"></span> <?php print($this->get_property_of($_SESSION['id'],"first_name"));?></a></li>
+						<li role="presentation"><a href="messages"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
+						<li role="presentation"><a href="walk"><span class="glyphicon glyphicon-link"></span> Walking Zone</a></li>
+						<li role="presentation"><a href="notifications"><span class="glyphicon glyphicon-bell"></span> Notifications</a></li>
+						<li role="presentation"><a href="request"><span class="glyphicon glyphicon-star"></span> Requests <span class="badge"><?php if($_SESSION['incoming'][0]==0) echo 0;
                     else
                     echo count($_SESSION['incoming']);?></span></a></li>
-                        </ul>
-                                                   <ul class="nav navbar-nav navbar-right">
-                                       
-                                <form class="navbar-form navbar-right" method="post" action=""  role="search">
-                            <div class="form-group">
-                             
-                              <input type="text" class="form-control" autocomplete="off" id="search" name="search" onkeyup="search_for(this.value);" placeholder="Search people..">
-                           </div>
-                            <div class="form-group">
-                                <br>
-                                <br>
-                               
-                                    <div class="dropdown">
-                                        
-                                <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="visibility: hidden; display: none;">
-                                </button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" id="searchResult">
-                                  
-                                </ul>
-                              </div>
-                            </div>
-                            <button type="submit" id="btnSearch" onclick="search_for($('#search').val()); return false;" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
-                            
-                                </form>
-                            <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-th"></span></a>
-                              <ul class="dropdown-menu" role="menu">
-                                <li><a href="settings"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
-                                <li><a href="friends"><span class="glyphicon glyphicon-user"> Friends (<?php if($_SESSION['friends'][0]==0) echo 0;
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+
+						<form class="navbar-form navbar-right" method="post" action="" role="search">
+							<div class="form-group">
+
+								<input type="text" class="form-control" autocomplete="off" id="search" name="search" onkeyup="search_for(this.value);" placeholder="Search people..">
+							</div>
+							<div class="form-group">
+								<br>
+								<br>
+
+								<div class="dropdown">
+
+									<button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="visibility: hidden; display: none;">
+									</button>
+									<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" id="searchResult">
+
+									</ul>
+								</div>
+							</div>
+							<button type="submit" id="btnSearch" onclick="search_for($('#search').val()); return false;" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
+
+						</form>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-th"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="settings"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+								<li><a href="friends"><span class="glyphicon glyphicon-user"> Friends (<?php if($_SESSION['friends'][0]==0) echo 0;
                     else
                     echo count($_SESSION['friends']);?>)</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="logout"><span class="glyphicon glyphicon-trash"></span> Logout</a></li>
-                              </ul>
-                            </li>
-                           
-                          </ul>
-                       
+								<li><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li><a href="logout"><span class="glyphicon glyphicon-trash"></span> Logout</a></li>
+							</ul>
+						</li>
 
-                        </div><!-- /.navbar-collapse -->
-                      </div><!-- /.container-fluid -->
-                    </nav>
+					</ul>
 
-                               
-                <script>
-                    $('#searchResult').hide();
-                    function search_for(query){
-                        if (query!="") {
-                            $.ajax({
-                            url : 'http://localhost/sandeep/php/search.php',
-                            method : 'GET',
-                            data : {'query' : query},
-                            success :  function(result){
-                                        $('#searchResult').slideDown('fast');
-                                        $('#searchResult').html('<li>'+result+'</li>');
-                                    },
-                            error : function(){
-                                        $('#searchResult').html('We are having some problem');
-                                    },
-                            complete : function(){
-                                document.onclick= function(){
-                                       $('#searchResult').slideUp(600);
-                                    
-                                }
-                                
-                            }
-                        });
-                        }
-                     }
-                    
-                   
-                    
-                    
-                </script>
-            <?php
+
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+
+
+		<script>
+			$('#searchResult').hide();
+
+			function search_for(query) {
+				if (query != "") {
+					$.ajax({
+						url: 'http://localhost/sandeep/php/search.php',
+						method: 'GET',
+						data: {
+							'query': query
+						},
+						success: function(result) {
+							$('#searchResult').slideDown('fast');
+							$('#searchResult').html('<li>' + result + '</li>');
+						},
+						error: function() {
+							$('#searchResult').html('We are having some problem');
+						},
+						complete: function() {
+							document.onclick = function() {
+								$('#searchResult').slideUp(600);
+
+							}
+
+						}
+					});
+				}
+			}
+		</script>
+		<?php
     }
     
     
@@ -539,10 +560,10 @@ class FUNCTIONS {
                     $_SESSION['id'] = $database_result->id;
                     
                     ?>
-                    <script>
-                        window.location.href='http://localhost/sandeep/home';
-                    </script>
-                    <?php
+			<script>
+				window.location.href = 'http://localhost/sandeep/home';
+			</script>
+			<?php
                     exit;
                 }
                 else{
@@ -651,9 +672,9 @@ class FUNCTIONS {
         $query->execute();
         $user_info = $query->fetchObject();
         ?>
-    
-    <a class="bg-info" href="http://localhost/sandeep/profile?id=<?php echo $user_id; ?>"><?php $this->get_full_name($user_id); echo ' ('.ucwords($user_info->sex).')';  ?></a>
-      <?php
+
+				<a href="http://localhost/sandeep/profile?id=<?php echo $user_id; ?>"><?php $this->get_full_name($user_id); echo ' ('.ucwords($user_info->sex).')';  ?></a>
+				<?php
     }
     
     public function is_member($id)
@@ -673,6 +694,73 @@ class FUNCTIONS {
         }
     }
     
+    
+    public function news_feed($user_id, $flag=true){
+        if($flag){
+            $fried_ids[0]= $user_id;
+        }else{
+                $fried_ids = $this->get_friend_ids($user_id);
+                global $conn;
+                
+                if($fried_ids[0]==0){
+                    $fried_ids[0]= $user_id;
+                }
+                else{
+                  array_push($fried_ids, $user_id);  
+                }
+        }
+        global $conn;
+        $table = "posts";
+       // print_r($fried_ids);
+        $total_question_marks = count($fried_ids);
+       // echo $total_question_marks;
+        $question_mark_array = array_fill(0, $total_question_marks, '?');
+      //  print_r($question_mark_array);
+        $str = implode(",",$question_mark_array);
+      //  echo $str;
+        $sql = "select * from $table where user_id in ($str) order by posted_at desc";
+      //  echo $sql;
+        $query = $conn->prepare($sql);
+        foreach($fried_ids as $k => $v){
+            $query->bindParam($k+1,trim($v));
+        }
+        $query->execute();
+        while($result = $query->fetch(PDO::FETCH_OBJ)){
+            ?><div class="thumbnail" style="box-shadow: 3px 3px 3px #ccc">
+                <h4><?php $this->show_glance($result->user_id);?></h4>
+                <p class="lead">
+                    <?php echo $result->status; ?>
+                </p>
+                <small>
+                    <?php echo $this->time_elapsed($result->posted_at); ?>
+                </small>
+            </div>
+            <?php
+        }
+        
+    }
+    
+    
+    public function time_elapsed($time){
+    $secs = time() - $time;
+    $bit = array(
+        ' year'        => $secs / 31556926 % 12,
+        ' week'        => $secs / 604800 % 52,
+        ' day'        => $secs / 86400 % 7,
+        ' hour'        => $secs / 3600 % 24,
+        ' minute'    => $secs / 60 % 60,
+        ' second'    => $secs % 60
+        );
+        
+    foreach($bit as $k => $v){
+        if($v > 1)$ret[] = $v . $k . 's';
+        if($v == 1)$ret[] = $v . $k;
+        }
+    array_splice($ret, count($ret)-1, 0, 'and');
+    $ret[] = 'ago.';
+    
+    return join(' ', $ret);
+    }
     
     
     

@@ -18,9 +18,6 @@ if(isset( $_GET['id']))
 {
     $other_id = trim($_GET['id']);
 }
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -591,13 +588,11 @@ if(isset( $_GET['id']))
         
  <script>
     
-
     
      $('#edit-profile').on('show.bs.modal', function (event) {
   var modal = $(this);
   modal.find('.modal-body').load('http://localhost/sandeep/edit.php');
 });
-
    $('#changephoto').on('show.bs.modal', function (event) {
   var modal = $(this);
   modal.find('.modal-body').load('http://localhost/sandeep/changephoto.php');

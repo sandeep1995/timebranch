@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2015 at 11:40 AM
+-- Generation Time: Oct 04, 2015 at 10:01 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -30,7 +30,15 @@ CREATE TABLE IF NOT EXISTS `block_list` (
   `id` int(11) NOT NULL,
   `block_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `block_list`
+--
+
+INSERT INTO `block_list` (`id`, `block_id`, `user_id`) VALUES
+(1, 3, 1),
+(2, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -43,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `friends` (
   `user_id` int(11) NOT NULL,
   `friend_id` int(11) NOT NULL,
   `friend_since` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `friends`
@@ -52,10 +60,8 @@ CREATE TABLE IF NOT EXISTS `friends` (
 INSERT INTO `friends` (`id`, `user_id`, `friend_id`, `friend_since`) VALUES
 (8, 3, 2, 1442179329),
 (9, 2, 3, 1442179329),
-(10, 1, 2, 1442179744),
-(11, 2, 1, 1442179744),
-(12, 1, 3, 1442179781),
-(13, 3, 1, 1442179781);
+(18, 2, 1, 1443987779),
+(19, 1, 2, 1443987779);
 
 -- --------------------------------------------------------
 
@@ -68,7 +74,29 @@ CREATE TABLE IF NOT EXISTS `friend_requests` (
   `sent_to_id` int(11) NOT NULL,
   `sent_from_id` int(11) NOT NULL,
   `sent_time` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `posts`
+--
+
+CREATE TABLE IF NOT EXISTS `posts` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` varchar(2048) NOT NULL,
+  `posted_at` bigint(20) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`id`, `user_id`, `status`, `posted_at`) VALUES
+(20, 1, 'ami post korlam Sandeep', 1443984669),
+(21, 2, 'ami keshab post korlam', 1443984684),
+(22, 2, 'I am new here', 1443987758);
 
 -- --------------------------------------------------------
 
@@ -129,6 +157,12 @@ ALTER TABLE `friend_requests`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -143,17 +177,22 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `block_list`
 --
 ALTER TABLE `block_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `friends`
 --
 ALTER TABLE `friends`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `friend_requests`
 --
 ALTER TABLE `friend_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `user`
 --
