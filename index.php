@@ -54,12 +54,6 @@ if(isset($_COOKIE['A']) && isset($_COOKIE['B']))
   </head>
 
   <body onload="load();">
-    
-    
-    
-    
-    
-    
      <div class="modal fade" id="notice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
@@ -89,15 +83,7 @@ if(isset($_COOKIE['A']) && isset($_COOKIE['B']))
                   </div>
                 </div>
               </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
  <div class="site-wrapper">
 
       <div class="site-wrapper-inner">
@@ -124,7 +110,7 @@ if(isset($_COOKIE['A']) && isset($_COOKIE['B']))
            
                 <form class="form-horizontal" method="post" action="php/signup.php" id="sign_up_form">
                   <br>
-                   <h1 class="cover-heading">Sign Me Up
+                   <h1 class="cover-heading">Create Account
                    
                   </h1>
                    <div class="form-group">
@@ -148,12 +134,12 @@ if(isset($_COOKIE['A']) && isset($_COOKIE['B']))
                       <label for="inputSex" class="col-sm-2 control-label">I am</label>
                       <div class="col-sm-4">
                      <label class="radio-inline">
-  <input type="radio" name="sex" id="sex1" value="male" required> <b>Boy</b>
-</label>
-<label class="radio-inline">
-  <input type="radio" name="sex" id="sex2" value="female" checked="checked" required> <b>Girl</b>
-</label>
-                      </div>
+                          <input type="radio" name="sex" id="sex1" value="male" required> <b>Boy</b>
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="sex" id="sex2" value="female" checked="checked" required> <b>Girl</b>
+                        </label>
+                          </div>
                     </div>
                          
                       <div class="form-group">
@@ -174,7 +160,7 @@ if(isset($_COOKIE['A']) && isset($_COOKIE['B']))
           </div>
            <div class="inner cover bar" id="login" style="font-size: larger">
             <br>
-            <h1 class="cover-heading">Come Inside</h1>
+            <h1 class="cover-heading">Sign In</h1>
                  <form class="form-horizontal" method="post" id="login_form">
                     <div class="form-group">
                       
@@ -319,7 +305,6 @@ if(isset($_COOKIE['A']) && isset($_COOKIE['B']))
         $('#password-info').html('<b>Password did not matched. Please try again.</b>');
       }
     }
-    
     return false;
     });    
       

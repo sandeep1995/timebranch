@@ -50,13 +50,20 @@ $_SESSION['block_list'] = $q->get_block_ids($user_id);
          <?php $q->nav(); ?>
         <!-- -------------------------------------///////////////////////////////////////////////////////////---------------------- -->
         <div class="row">
-            <div class="col-md-3">
-                <?php print_r($_COOKIE); ?>
+            <div class="col-md-6">
+                <form class="form-horizontal" method="post" id="status-update-form">
+                      <div class="form-group">
+                      <div class="col-sm-8">
+                       <textarea class="form-control" rows="2" name="status" id="status" placeholder="Anything special to share?"></textarea>
+                      </div>
+                      <div class="col-sm-4">
+                      <button type="submit" class="btn btn-success btn-block btn-lg" style="padding: 13.4px;">Post</button> 
+                      </div>
+                    </div>
+                    
+                </form>
             </div>
             <div class="col-md-6">
-                
-            </div>
-            <div class="col-md-3">
                 
             </div>
         </div>

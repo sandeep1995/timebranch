@@ -1,7 +1,7 @@
 /*
  * Globals
  */
-
+@import url(https://fonts.googleapis.com/css?family=Roboto);
 /* Links */
 a,
 a:focus,
@@ -37,15 +37,8 @@ input{
   box-shadow: 2px 2px 3px #252525;
   padding: 15px;
   background: #fafefb;
-  border-left: solid 13px #204b80;
- 
+  border-left: solid 13px #2b64aa;
   z-index: 10000;
-}
-input {
-  font-family: monospace;
-  font-size: 20px;
-  font-weight: bold;
-  border-radius:0;
 }
 
 .form-horizontal {
@@ -80,7 +73,7 @@ body {
     -moz-background-size: 100%;
     -o-background-size: 100%;
     background-size: 100%;
-
+ font-family: 'Roboto', sans-serif;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -219,4 +212,9 @@ body {
   .cover-container {
     width: 700px;
   }
+}
+
+input[type="text"],input[type="email"],input[type="password"]{
+  border-radius:0;
+  padding: 10px;
 }
