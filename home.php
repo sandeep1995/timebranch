@@ -72,8 +72,6 @@ $_SESSION['block_list'] = $q->get_block_ids($user_id);
 				</div>
 				<div class="row">
 					<div class="col-md-8 news-feed">
-						<h2>News Feed</h2>
-						<hr>
 					</div>
 					<div class="col-md-4">
 

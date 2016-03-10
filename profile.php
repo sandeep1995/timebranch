@@ -253,7 +253,7 @@ if(isset( $_GET['id']))
             <div class="col-md-8">
                 <div>
                <?php
-               $q->news_feed($user_id, false);
+               $q->news_feed($user_id, true);
                ?>
                   
                 </div>
@@ -316,15 +316,6 @@ if(isset( $_GET['id']))
               
         
         <div class="row">
-             <div class="col-md-8">
-                <div>
-               <h3>Activty</h3>
-                        <?php
-               $q->news_feed($other_id, false);
-               ?>
-                       
-                </div>
-            </div>
             <div class="col-md-4">
                 <div class="panel panel-primary">
                <div class="panel-heading"><h3><?php print($q->get_full_name($other_id)); ?></h3>
@@ -475,8 +466,16 @@ if(isset( $_GET['id']))
                </div>
 </div>
             </div>
-            
+         <div class="col-md-8">
+                <div>
+                        <?php
+               $q->news_feed($other_id,true);
+               ?>
+                       
+                </div>
+            </div>      
         </div>
+
         <script>
             $('#addFriend').click(function(){
                 $.ajax({

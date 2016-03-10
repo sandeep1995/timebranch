@@ -755,11 +755,19 @@ class FUNCTIONS {
     }
     }
     
+    public function people_you_may_know_of($user_id){
+        
+        $friends[] = $this->get_friend_ids($user_id);
+        
+        
+    }
+    
     
     
     
     
 }
+
 $q = new FUNCTIONS;
 
 ?>
