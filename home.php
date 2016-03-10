@@ -88,7 +88,7 @@ $_SESSION['block_list'] = $q->get_block_ids($user_id);
 				if (status == "") {
 					$("#error-msg").html('Hey! Please enter something').fadeIn();
 					setTimeout(function() {
-						$("#error-msg").fadeOut();
+						$("#error-msg").slideUp();
 					}, 3000);
 				} else {
 					$.ajax({
@@ -127,7 +127,7 @@ $_SESSION['block_list'] = $q->get_block_ids($user_id);
 						setTimeout(function() {
 							$("#error-msg").fadeOut();
 						}, 3000);
-						$('.news-feed').append(data);
+						$('.news-feed').html(data);
 					},
 					error: function() {
 						$("#error-msg").html('There is some error occured').fadeIn();

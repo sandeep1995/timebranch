@@ -63,7 +63,6 @@ class FUNCTIONS {
                             echo '<p class="text-primary">Hello '.$fname.' You have been successfully signed up. Please Log In now.</p>'.' <button onclick="login();" class="btn btn-primary">Click here to login.</button>';
                             $path = "../uploads/$user_id_may_be";
                             mkdir($path);
-                            $this->signup_email($email,'Welcome To Dost Factory',$fname);
                     }
                     else
                     {
@@ -474,23 +473,6 @@ class FUNCTIONS {
     }
     
     
-    public function signup_email($to,$subject,$fname)
-    {
-
-            
-            $message = "<h3>$fname</h3> ".' You have been successfulyy signed up';
-            
-            // Always set content-type when sending HTML email
-            $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-            
-            // More headers
-            $headers .= 'From: <webmaster@example.com>' . "\r\n";
-            
-            mail($to,$subject,$message,$headers);
-
-    }
-    
     public function add($user_id,$property,$value)
     {
         global $conn;
@@ -673,7 +655,7 @@ class FUNCTIONS {
         $user_info = $query->fetchObject();
         ?>
 
-				<a href="http://localhost/sandeep/profile?id=<?php echo $user_id; ?>"><?php $this->get_full_name($user_id); echo ' ('.ucwords($user_info->sex).')';  ?></a>
+				<a style="text-decoration: none; color: #1f99f3;" href="http://localhost/sandeep/profile?id=<?php echo $user_id; ?>"><?php $this->get_full_name($user_id); ?></a>
 				<?php
     }
     
@@ -722,11 +704,11 @@ class FUNCTIONS {
       //  echo $sql;
         $query = $conn->prepare($sql);
         foreach($fried_ids as $k => $v){
-            $query->bindParam($k+1,trim($v));
+            @$query->bindParam($k+1,trim($v));
         }
         $query->execute();
         while($result = $query->fetch(PDO::FETCH_OBJ)){
-            ?><div class="thumbnail" style="box-shadow: 3px 3px 3px #ccc">
+            ?><div style=" border: 1px solid #ccc; box-shadow: 1px 1px 1px #ccc; margin-bottom: 20px; padding: 20px;">
                 <h4><?php $this->show_glance($result->user_id);?></h4>
                 <p class="lead">
                     <?php echo $result->status; ?>
@@ -743,6 +725,12 @@ class FUNCTIONS {
     
     public function time_elapsed($time){
     $secs = time() - $time;
+    if($secs < 90){
+        return 'just now';
+    }
+    
+    if($secs < 3600*24*3){
+    $ret[] = "";
     $bit = array(
         ' year'        => $secs / 31556926 % 12,
         ' week'        => $secs / 604800 % 52,
@@ -758,9 +746,16 @@ class FUNCTIONS {
         }
     array_splice($ret, count($ret)-1, 0, 'and');
     $ret[] = 'ago.';
-    
     return join(' ', $ret);
     }
+    else {
+        $ts = $time;
+        $date = new DateTime("@$ts");
+        echo $date->format('H:i d/m/Y') . "\n";
+    }
+    }
+    
+    
     
     
     

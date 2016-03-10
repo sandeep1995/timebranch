@@ -126,12 +126,6 @@ if(isset( $_GET['id']))
               
         
         <div class="row">
-             <div class="col-md-8">
-                <div class="thumbnail">
-               <h3>Activty</h3>
-                  
-                </div>
-            </div>
             <div class="col-md-4">
                 <div class="panel panel-primary">
                <div class="panel-heading"><h3><?php print($q->get_full_name($user_id)); ?></h3>
@@ -253,7 +247,14 @@ if(isset( $_GET['id']))
                 <div class="panel-footer"><a class="btn btn-success btn-block" id="profile_cust" data-toggle="modal" data-target="#edit-profile" type="button"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a></div>
                 </div>
             </div>
-            
+            <div class="col-md-8">
+                <div>
+               <?php
+               $q->news_feed($user_id, false);
+               ?>
+                  
+                </div>
+            </div>
         </div>
             
         <script>
@@ -313,9 +314,12 @@ if(isset( $_GET['id']))
         
         <div class="row">
              <div class="col-md-8">
-                <div class="thumbnail">
+                <div>
                <h3>Activty</h3>
-                             
+                        <?php
+               $q->news_feed($other_id, false);
+               ?>
+                       
                 </div>
             </div>
             <div class="col-md-4">

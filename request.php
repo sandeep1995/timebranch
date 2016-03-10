@@ -52,6 +52,9 @@ $_SESSION['block_list'] = $q->get_block_ids($user_id);
         <!-- -------------------------------------///////////////////////////////////////////////////////////---------------------- -->
         <div class="row">
             <div class="col-md-12">
+                <div class="well">
+                    <h3>Received Requests</h3>
+                </div>
                 <?php
                 if($_SESSION['incoming'][0]==0){
                     echo '<p class="alert alert-danger">You do not have any incoming friend requests.</p>';

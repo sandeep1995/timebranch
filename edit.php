@@ -65,7 +65,9 @@ $user_id = $_SESSION['id'];
                         <div class="col-sm-9">
                            <input type="text" class="form-control" id="language_2nd" value="<?php echo  $q->get_property_of($user_id,'language_2nd');  ?>" name="language_2nd" placeholder="any other language you know">
                         </div>
-                        <br>
+                      </div>
+                      <div class="form-group">
+                        <label for="language_3rd" class="col-sm-3 control-label"><b>Other Languages</b></label>
                         <div class="col-sm-9">
                            <input type="text" class="form-control" id="language_3rd" value="<?php echo  $q->get_property_of($user_id,'language_3rd');  ?>" name="language_3rd" placeholder="any other language you know">
                         </div>
