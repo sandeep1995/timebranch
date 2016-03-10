@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 04, 2015 at 10:01 PM
--- Server version: 5.6.26
--- PHP Version: 5.6.12
+-- Generation Time: Mar 10, 2016 at 02:51 PM
+-- Server version: 10.1.10-MariaDB
+-- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,19 +26,19 @@ SET time_zone = "+00:00";
 -- Table structure for table `block_list`
 --
 
-CREATE TABLE IF NOT EXISTS `block_list` (
+CREATE TABLE `block_list` (
   `id` int(11) NOT NULL,
   `block_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `block_list`
 --
 
 INSERT INTO `block_list` (`id`, `block_id`, `user_id`) VALUES
-(1, 3, 1),
-(2, 1, 3);
+(3, 4, 8),
+(4, 8, 4);
 
 -- --------------------------------------------------------
 
@@ -46,22 +46,12 @@ INSERT INTO `block_list` (`id`, `block_id`, `user_id`) VALUES
 -- Table structure for table `friends`
 --
 
-CREATE TABLE IF NOT EXISTS `friends` (
+CREATE TABLE `friends` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `friend_id` int(11) NOT NULL,
   `friend_since` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `friends`
---
-
-INSERT INTO `friends` (`id`, `user_id`, `friend_id`, `friend_since`) VALUES
-(8, 3, 2, 1442179329),
-(9, 2, 3, 1442179329),
-(18, 2, 1, 1443987779),
-(19, 1, 2, 1443987779);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -69,12 +59,20 @@ INSERT INTO `friends` (`id`, `user_id`, `friend_id`, `friend_since`) VALUES
 -- Table structure for table `friend_requests`
 --
 
-CREATE TABLE IF NOT EXISTS `friend_requests` (
+CREATE TABLE `friend_requests` (
   `id` int(11) NOT NULL,
   `sent_to_id` int(11) NOT NULL,
   `sent_from_id` int(11) NOT NULL,
   `sent_time` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `friend_requests`
+--
+
+INSERT INTO `friend_requests` (`id`, `sent_to_id`, `sent_from_id`, `sent_time`) VALUES
+(5, 5, 7, 1457208914),
+(8, 6, 4, 1457209469);
 
 -- --------------------------------------------------------
 
@@ -82,21 +80,24 @@ CREATE TABLE IF NOT EXISTS `friend_requests` (
 -- Table structure for table `posts`
 --
 
-CREATE TABLE IF NOT EXISTS `posts` (
+CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `status` varchar(2048) NOT NULL,
   `posted_at` bigint(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `posts`
 --
 
 INSERT INTO `posts` (`id`, `user_id`, `status`, `posted_at`) VALUES
-(20, 1, 'ami post korlam Sandeep', 1443984669),
-(21, 2, 'ami keshab post korlam', 1443984684),
-(22, 2, 'I am new here', 1443987758);
+(37, 4, 'I am Sandeep Acharya. This is my first Post.', 1457208461),
+(38, 7, 'Hi I am Mallika. New Here.', 1457208827),
+(39, 4, 'I am Sandeep', 1457209083),
+(40, 8, 'I am Santu. Now I will cahnge my status and info and profile picture.', 1457209260),
+(41, 4, 'Wow....', 1457209459),
+(42, 4, 'This is a new post.', 1457616789);
 
 -- --------------------------------------------------------
 
@@ -104,7 +105,7 @@ INSERT INTO `posts` (`id`, `user_id`, `status`, `posted_at`) VALUES
 -- Table structure for table `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `first_name` varchar(256) NOT NULL,
   `middle_name` varchar(256) NOT NULL,
@@ -123,16 +124,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   `language_2nd` varchar(256) NOT NULL,
   `language_3rd` varchar(256) NOT NULL,
   `relationship` varchar(256) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `first_name`, `middle_name`, `last_name`, `email`, `password`, `joining_time_stamp`, `sex`, `profile_status`, `profile_picture_path`, `mobile_no`, `hometown`, `school_name`, `college_name`, `language_1st`, `language_2nd`, `language_3rd`, `relationship`) VALUES
-(1, 'Sandeep', '', 'Acharya', 'i.am.sandeep.acharya@gmail.com', 'a63344033a193f3da3af76f4010c2a0754e033d9', 1442158102, 'male', 'I am the boss', 'http://localhost/sandeep/uploads/1/WP_20130805_00820130807094058201401020140104011616.jpg', '9679343518', 'Taherpur', '', 'Heritage Institute Of Technology', '', '', '', 'I Am Always With You'),
-(2, 'Keshab', '', 'Sahoo', 'keshab@gmail.com', 'cf5f756d88f00d403dda7c93e36f4c52dd1e2aa9', 1442162292, 'male', 'I am keshab', 'http://localhost/sandeep/uploads/2/main-thumb-74652087-200-ulemrvyguidqagxcxolawdygjbbqthgj.jpeg', '9879798798', '', '', '', 'Bengali', '', '', ''),
-(3, 'Mallika', '', 'Some', 'mallika@gmail.com', '3fbffddf8fd3ab21ceeaa8a0b26edf04e57079ca', 1442175019, 'female', '', '', '', '', '', '', '', '', '', '');
+(4, 'Sandeep', '', 'Acharya', 'i.am.sandeep.acharya@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1457206082, 'male', '', 'http://localhost/sandeep/uploads/4/12742376_196654257362217_6337975465053401984_n.jpg', '', '', '', '', '', '', '', ''),
+(5, 'Keshab', '', 'Sahoo', 'keshab@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1457206820, 'male', '', '', '', '', '', '', '', '', '', ''),
+(6, 'PRANAY', 'KUMAR', 'NANDI', 'pranay.nandi99@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1457207362, 'male', '', '', '', '', '', '', '', '', '', ''),
+(7, 'Mallika', '', 'Das', 'mallika@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1457208787, 'female', 'I am new here', 'http://localhost/sandeep/uploads/7/billions.jpg', '8979878978', 'Kolkata', '', '', '', '', '', ''),
+(8, 'Santu', '', 'Das', 'sandeep.acharya@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1457209212, 'male', 'I am santu.', 'http://localhost/sandeep/uploads/8/question.jpg', '789798789', '', '', '', '', '', '', '');
 
 --
 -- Indexes for dumped tables
@@ -177,27 +180,27 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `block_list`
 --
 ALTER TABLE `block_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `friends`
 --
 ALTER TABLE `friends`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `friend_requests`
 --
 ALTER TABLE `friend_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
