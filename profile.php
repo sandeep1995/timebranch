@@ -152,6 +152,8 @@ if(isset( $_GET['id']))
                 width="80%" data-toggle="modal" data-target="<?php echo '#'.$user_id; ?>" type="button" /><br>
                 
                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#changephoto" type="button" >Change Pic</button>
+                        <a class="btn btn-success btn-sm" id="profile_cust" data-toggle="modal" data-target="#edit-profile" type="button"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a>
+                
                 </center>
                 <br>
                     <ul class="list-group">
@@ -244,7 +246,8 @@ if(isset( $_GET['id']))
                        
                     </ul>
                </div>
-                <div class="panel-footer"><a class="btn btn-success btn-block" id="profile_cust" data-toggle="modal" data-target="#edit-profile" type="button"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a></div>
+                <div class="panel-footer">
+                </div>
                 </div>
             </div>
             <div class="col-md-8">
