@@ -73,8 +73,11 @@ $_SESSION['block_list'] = $q->get_block_ids($user_id);
 				<div class="row">
 					<div class="col-md-8 news-feed">
 					</div>
-					<div class="col-md-4">
-
+					<div class="col-md-4" style="border: 1px solid #ccc; box-shadow: 1px 1px 1px #ccc; padding: 10px;">
+						<h4>People you may know</h4>
+				<?php
+				$q->people_you_may_know_of($user_id);
+				?>
 					</div>
 				</div>
 		</div>

@@ -40,9 +40,9 @@ class FUNCTIONS {
         $email = trim($_POST['signupEmail']);
         if(!($this->is_email_exist($email)))
         {
-                $fname = ucwords(trim($_POST['firstname']));
-                $mname = ucwords(trim($_POST['middlename']));
-                $lname = ucwords(trim($_POST['lastname']));
+                $fname = ucwords(strtolower(trim($_POST['firstname'])));
+                $mname = ucwords(strtolower(trim($_POST['middlename'])));
+                $lname = ucwords(strtolower(trim($_POST['lastname'])));
                 $sex = $_POST['sex'];
                 $password =  sha1($_POST['password']);
                 global $conn;
@@ -756,10 +756,24 @@ class FUNCTIONS {
     }
     
     public function people_you_may_know_of($user_id){
-        
-        $friends[] = $this->get_friend_ids($user_id);
-        
-        
+        $friends= $this->get_friend_ids($user_id);
+        global $conn;
+        $table= 'user';
+        $total_question_marks = count($friends);
+        $question_mark_array = array_fill(0, $total_question_marks, '?');
+        $str = implode(",",$question_mark_array);
+        $sql = "select id from $table where id not in ($str) order by rand() limit 10";
+        $query = $conn->prepare($sql);
+        foreach($friends as $k => $v){
+            @$query->bindParam($k+1,trim($v));
+        }
+        $query->execute();
+        $user_info = $query->fetchAll(PDO::FETCH_OBJ);
+        foreach($user_info as $k => $v){
+            ?>
+            <div class="well"> <?php $this->show_glance($v->id); ?></div>
+            <?php
+        }
     }
     
     
