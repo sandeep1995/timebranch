@@ -769,10 +769,21 @@ class FUNCTIONS {
         }
         $query->execute();
         $user_info = $query->fetchAll(PDO::FETCH_OBJ);
+        $array_people_you_may_know = array();
         foreach($user_info as $k => $v){
-            ?>
-            <div class="well"> <?php $this->show_glance($v->id); ?></div>
+            if(($v->id)!= $user_id){
+                array_push($array_people_you_may_know,$v->id);
+            }
+        }
+        if(!empty($array_people_you_may_know)){
+        foreach($array_people_you_may_know as $key => $value){
+             ?>
+            <div class="well"> <?php $this->show_glance($value); ?></div>
             <?php
+        }
+        }
+        else{
+            echo '<div class="well">Try to make friends first';
         }
     }
     
