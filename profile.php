@@ -310,6 +310,21 @@ if(isset( $_GET['id']))
                   </div>
                 </div>
               </div>
+                <div class="modal fade" id="<?php echo $other_id."common"; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabelCommon" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header"  style="background: #efefef;">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h3 class="modal-title" id="myModalLabelCommon">Mutual Friends with <?php print($q->get_full_name($other_id)); ?></h3>
+                    </div>
+                    <div class="modal-body">
+                     </div>
+                    <div class="modal-footer"  style="background: #efefef;">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
         
               
               
@@ -341,6 +356,7 @@ if(isset( $_GET['id']))
                 ?>"
                 width="80%" data-toggle="modal" data-target="<?php echo '#'.$other_id; ?>" type="button" />
                 <br>
+                <button class="btn btn-sm" data-toggle="modal" data-target="<?php echo '#'.$other_id."common"; ?>" type="button"><?php $q->no_of_mutual_frineds($user_id, $other_id);?> </button><br>
                 <?php if(in_array($other_id,$_SESSION['incoming']))
                 {   //if id is in the friend request array
                     ?>
@@ -576,9 +592,14 @@ if(isset( $_GET['id']))
         
                 <script>
                             $('<?php echo '#'.$other_id; ?>').on('show.bs.modal', function (event) {
-  var modal = $(this);
-  modal.find('.modal-body').load("http://localhost/sandeep/php/photo.php?id=<?php echo $other_id;?>");
-});
+                            var modal = $(this);
+                            modal.find('.modal-body').load("http://localhost/sandeep/php/photo.php?id=<?php echo $other_id;?>");
+                            });
+                            
+                            $('<?php echo '#'.$other_id."common"; ?>').on('show.bs.modal', function (event) {
+                            var modal = $(this);
+                            modal.find('.modal-body').load("http://localhost/sandeep/common.php?other_id=<?php echo $other_id;?>");
+                            });
                 </script>
          
        <?php }

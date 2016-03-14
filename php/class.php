@@ -778,12 +778,48 @@ class FUNCTIONS {
         if(!empty($array_people_you_may_know)){
         foreach($array_people_you_may_know as $key => $value){
              ?>
-            <div class="well"> <?php $this->show_glance($value); ?></div>
+            <div class="well"> <?php $this->show_glance($value); $this->no_of_mutual_frineds($user_id,$value); ?></div>
             <?php
         }
         }
         else{
             echo '<div class="well">Try to make friends first';
+        }
+    }
+    
+    public function no_of_mutual_frineds($user_id, $other_id){
+        $user_friends = $this->get_friend_ids($user_id);
+        if(count($user_friends) == 1){
+            echo '<div class="small">[ 0 common ]</div>';
+        }
+        else{
+            $i = 0;
+             $other_friends = $this->get_friend_ids($other_id);
+             foreach($other_friends as $key => $val){
+                if(in_array($val,$user_friends)){
+                    $i++;
+                }
+             }
+             echo '<div class="small">[ '.$i.' common ]</div>';
+        }
+    }
+    
+    public function return_mutual_ids($user_id, $other_id){
+        $return_array = array();
+         $user_friends = $this->get_friend_ids($user_id);
+        if(count($user_friends) == 1){
+            return $return_array;
+        }
+        else{
+            $i = 0;
+             $other_friends = $this->get_friend_ids($other_id);
+             foreach($other_friends as $key => $val){
+                if(in_array($val,$user_friends)){
+                    $return_array[$i] = $val;
+                    $i++;
+                }
+             }
+             return $return_array;
         }
     }
     
