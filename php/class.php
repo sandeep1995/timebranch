@@ -3,19 +3,19 @@ include('db.php');
 class FUNCTIONS {
     public function check_email($email)
     {
-        $email = trim($email);   
+        $email = trim($email);
         $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-        $regex = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$^"; 
+        $regex = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$^";
             if ( preg_match( $regex, $email )) {
                 $this->is_email_exist($email);
             }
-            else { 
+            else {
             echo '<span style="color:red;">'.$email . " is an invalid email. Please try again.".'</span>';
             return false;
         }
-        
+
     }
-    
+
     public function is_email_exist($email)
     {
         global $conn;
@@ -34,7 +34,7 @@ class FUNCTIONS {
             return false;
         }
     }
-    
+
     public function complete_signup()
     {
         $email = trim($_POST['signupEmail']);
@@ -57,7 +57,7 @@ class FUNCTIONS {
                 $time = time();
                 $query->bindParam(6, $time);
                 $query->bindParam(7, $sex);
-                
+
                 if($query->execute())
                     {       $user_id_may_be=$conn->lastInsertId();
                             echo '<p class="text-primary">Hello '.$fname.' You have been successfully signed up. Please Log In now.</p>'.' <button onclick="login();" class="btn btn-primary">Click here to login.</button>';
@@ -74,7 +74,7 @@ class FUNCTIONS {
             echo '<h1 style="color:red;">Try again. <a href="http://localhost/sandeep" class="btn btn-danger">Reload</a></h1>';
         }
     }
-    
+
     public function login_complete($A,$B)
     {
         global $conn;
@@ -89,10 +89,10 @@ class FUNCTIONS {
                     setcookie('B',$password,time()+(86400*30),"/");
                 }
         }
-    
+
         if(!empty($_POST['loginPassword']))
         {
-        
+
             $table = "user";
             $sql = "select id, password from $table where email = ?";
             $query = $conn->prepare($sql);
@@ -121,23 +121,23 @@ class FUNCTIONS {
             else{
                 echo "You have done some mistake in your password or email";
             }
-        }   
+        }
         else{
             echo "He He! You have not typed the password.";
         }
-        
-        
+
+
     }
-    
+
     public function redirect($url)
     {
         if (!headers_sent())
-        {    
+        {
             header('Location: '.$url);
             exit;
         }
         else
-        {  
+        {
         echo '<script type="text/javascript">';
         echo 'window.location.href="'.$url.'";';
         echo '</script>';
@@ -147,7 +147,7 @@ class FUNCTIONS {
         exit;
         }
     }
-    
+
       public function get_block_ids($user_id){
         global $conn;
         $table = "block_list";
@@ -169,7 +169,7 @@ class FUNCTIONS {
             return $request;
         }
     }
-    
+
     public function post_status($user_id,$status) {
         global $conn;
         $status = trim($status);
@@ -187,8 +187,8 @@ class FUNCTIONS {
             return 0;
         }
     }
-    
-    
+
+
      public function get_friend_ids($user_id){
         global $conn;
         $table = "friends";
@@ -210,7 +210,7 @@ class FUNCTIONS {
             return $request;
         }
     }
-    
+
     public function get_sent_friend_request_ids($user_id){
         global $conn;
         $table = "friend_requests";
@@ -232,7 +232,7 @@ class FUNCTIONS {
             return $request;
         }
     }
-    
+
     public function reject_request_of($other_id,$user_id){
                 global $conn;
                 $sql1 = "delete from friend_requests where sent_to_id =? and sent_from_id =?";
@@ -244,7 +244,7 @@ class FUNCTIONS {
                 else
                     echo 0;
     }
-    
+
     public function unfriend($friend_id,$user_id){
                 global $conn;
                 $sql1 = "delete from friends where user_id =? and friend_id =?";
@@ -261,7 +261,7 @@ class FUNCTIONS {
                 else
                     echo 0;
     }
-    
+
     public function add_to_block_list($other_id,$user_id){
                 global $conn;
                 $friends = $this->get_friend_ids($user_id);
@@ -281,7 +281,7 @@ class FUNCTIONS {
                  else
                  echo 0;
     }
-    
+
     public function accept_request_from($other_id,$user_id){
                 global $conn;
                 $time = time();
@@ -305,7 +305,7 @@ class FUNCTIONS {
                  else
                  echo 0;
     }
-    
+
     public function get_incoming_requests($user_id){
         global $conn;
         $table = "friend_requests";
@@ -329,7 +329,7 @@ class FUNCTIONS {
             return $request;
         }
     }
-    
+
     public function get_property_of($user_id,$parameter)
     {
         global $conn;
@@ -345,9 +345,9 @@ class FUNCTIONS {
         else{
                 return false;
         }
-        
+
     }
-    
+
     public function get_full_name($user_id){
         global $conn;
         $table = "user";
@@ -364,8 +364,8 @@ class FUNCTIONS {
             return false;
         }
     }
-    
-    
+
+
     public function nav()
     {
         ?>
@@ -471,8 +471,8 @@ class FUNCTIONS {
 		</script>
 		<?php
     }
-    
-    
+
+
     public function add($user_id,$property,$value)
     {
         global $conn;
@@ -483,7 +483,7 @@ class FUNCTIONS {
         $query->bindParam(2,$user_id);
         $query->execute();
     }
-    
+
     public function is_property_exists($user_id, $property)
     {
         global $conn;
@@ -497,16 +497,16 @@ class FUNCTIONS {
             $result = $query->fetchObject();
             if(empty($result->$property))
             {
-               return false; 
+               return false;
             }
             else
             {
                 return true;
             }
         }
-        
+
     }
-    
+
     public function send_request_to($friend_id,$user_id){
                 global $conn;
                 $time = time();
@@ -521,7 +521,7 @@ class FUNCTIONS {
                  else
                  echo 0;
     }
-    
+
     public function cookie_login($A,$B)
     {
         global $conn;
@@ -540,7 +540,7 @@ class FUNCTIONS {
                     //login true
                     session_start();
                     $_SESSION['id'] = $database_result->id;
-                    
+
                     ?>
 			<script>
 				window.location.href = 'http://localhost/sandeep/home';
@@ -555,24 +555,24 @@ class FUNCTIONS {
             else{
                 echo "You have done some mistake in your password or email";
             }
-        
-        
+
+
     }
-    
+
     public function live_search($search_term)
     {
             global $conn;
             $search_term = trim($search_term);
             if(!empty($search_term))
             {
-                
+
                 $terms = explode(" ",$search_term);
                 $val = 0;
                 foreach($terms as $k => $v)
                 {
-                    $val = $k + 1;     
+                    $val = $k + 1;
                 }
-                
+
                 if($val==1)
                 {
                     $table= 'user';
@@ -593,9 +593,9 @@ class FUNCTIONS {
                     {
                         echo '<a class="bg-danger">Sorry! Nothing Found</a>';
                     }
-                        
+
                 }
-                
+
                 if($val==2)
                 {
                     $table= 'user';
@@ -614,7 +614,7 @@ class FUNCTIONS {
                     {
                         echo '<a class="bg-danger">Sorry! Nothing Found</a>';
                     }
-                        
+
                 }
                 if($val==3)
                 {
@@ -640,10 +640,10 @@ class FUNCTIONS {
              else{
                 echo '<a class="bg-danger">Type a name or email</a>';
              }
-        
-        
+
+
     }
-    
+
     public function show_glance($user_id)
     {
         global $conn;
@@ -658,7 +658,7 @@ class FUNCTIONS {
 				<a style="text-decoration: none; color: #1f99f3;" href="http://localhost/sandeep/profile?id=<?php echo $user_id; ?>"><?php $this->get_full_name($user_id); ?></a>
 				<?php
     }
-    
+
     public function is_member($id)
     {
          global $conn;
@@ -675,20 +675,20 @@ class FUNCTIONS {
             return false;
         }
     }
-    
-    
+
+
     public function news_feed($user_id, $flag=true){
         if($flag){
             $fried_ids[0]= $user_id;
         }else{
                 $fried_ids = $this->get_friend_ids($user_id);
                 global $conn;
-                
+
                 if($fried_ids[0]==0){
                     $fried_ids[0]= $user_id;
                 }
                 else{
-                  array_push($fried_ids, $user_id);  
+                  array_push($fried_ids, $user_id);
                 }
         }
         global $conn;
@@ -714,21 +714,22 @@ class FUNCTIONS {
                     <?php echo $result->status; ?>
                 </p>
                 <small>
+                    <hr>
                     <?php echo $this->time_elapsed($result->posted_at); ?>
                 </small>
             </div>
             <?php
         }
-        
+
     }
-    
-    
+
+
     public function time_elapsed($time){
     $secs = time() - $time;
     if($secs < 90){
         return 'just now';
     }
-    
+
     if($secs < 3600*24*3){
     $ret[] = "";
     $bit = array(
@@ -739,7 +740,7 @@ class FUNCTIONS {
         ' minute'    => $secs / 60 % 60,
         ' second'    => $secs % 60
         );
-        
+
     foreach($bit as $k => $v){
         if($v > 1)$ret[] = $v . $k . 's';
         if($v == 1)$ret[] = $v . $k;
@@ -754,7 +755,7 @@ class FUNCTIONS {
         echo $date->format('H:i d/m/Y') . "\n";
     }
     }
-    
+
     public function people_you_may_know_of($user_id){
         $friends= $this->get_friend_ids($user_id);
         global $conn;
@@ -786,7 +787,7 @@ class FUNCTIONS {
             echo '<div class="well">Try to make friends first';
         }
     }
-    
+
     public function no_of_mutual_frineds($user_id, $other_id){
         $user_friends = $this->get_friend_ids($user_id);
         if(count($user_friends) == 1){
@@ -803,10 +804,10 @@ class FUNCTIONS {
              echo '<div class="small">[ '.$i.' common ]</div>';
         }
     }
-    
+
     public function return_mutual_ids($user_id, $other_id){
         $return_array = array();
-         $user_friends = $this->get_friend_ids($user_id);
+        $user_friends = $this->get_friend_ids($user_id);
         if(count($user_friends) == 1){
             return $return_array;
         }
@@ -821,12 +822,7 @@ class FUNCTIONS {
              }
              return $return_array;
         }
-    }
-    
-    
-    
-    
-    
+    }    
 }
 
 $q = new FUNCTIONS;
